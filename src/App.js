@@ -7,7 +7,7 @@ import ExerciseHome from "./components/Exercise/ExerciseHome.jsx";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App container">
       <Navbar />
       <Routes>
         <Route path="/home" element={<Home />} />
