@@ -6,12 +6,12 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 function InputNewExercise({ handleClose, show }) {
   const [inputtedExercise, setInputtedExercise] = useState({
-    type: "",
-    date: "",
+    exercise_type: "",
     distance: "",
     steps: "",
     calories: "",
-    time: "",
+    duration: "",
+    date: "",
   });
 
   const handleInput = (e) => {
@@ -23,7 +23,7 @@ function InputNewExercise({ handleClose, show }) {
   };
 
   const handleSubmit = async () => {
-    const response = await fetch("http://localhost:3000/post_exercise", {
+    const response = await fetch("http://localhost:4000/input_exercise", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,20 +43,10 @@ function InputNewExercise({ handleClose, show }) {
         <Modal.Body>
           <div className="d-flex justify-content-center">
             <div className="px-2">
-              <Dropdown onChange={handleInput} name="type">
-                <Dropdown.Toggle
-                  name="type"
-                  variant="success"
-                  id="dropdown-basic"
-                >
-                  Select type
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu name="type">
-                  <Dropdown.Item href="#/action-1">Run</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Walk</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+              <select onChange={handleInput} name="exercise_type">
+                <option>walk</option>
+                <option>run</option>
+              </select>
             </div>
           </div>
           <hr />
@@ -69,7 +59,7 @@ function InputNewExercise({ handleClose, show }) {
                 name="date"
                 onChange={handleInput}
               />
-              <Form.Label>Distance</Form.Label>
+              <Form.Label>Distance (km)</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="distance"
@@ -93,16 +83,14 @@ function InputNewExercise({ handleClose, show }) {
                 name="calories"
                 onChange={handleInput}
               />
-              <Form.Label>Time</Form.Label>
+              <Form.Label>Duration (mins)</Form.Label>
               <Form.Control
-                type="time"
-                placeholder="time"
+                type="Duration"
+                placeholder="duration"
                 autoFocus
-                name="time"
+                name="duration"
                 onChange={handleInput}
               />
-              <Form.Label>Image</Form.Label>
-              <Form.Control type="file" autoFocus />
             </Form.Group>
           </Form>
         </Modal.Body>
