@@ -6,12 +6,12 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 function InputNewExercise({ handleClose, show }) {
   const [inputtedExercise, setInputtedExercise] = useState({
-    exercise_type: "",
-    distance: "",
-    steps: "",
-    calories: "",
-    duration: "",
+    exercise_id: 0,
+    duration: 0,
+    calories: 0,
+    steps: 0,
     date: "",
+    distance: 0,
   });
 
   const handleInput = (e) => {
@@ -43,9 +43,9 @@ function InputNewExercise({ handleClose, show }) {
         <Modal.Body>
           <div className="d-flex justify-content-center">
             <div className="px-2">
-              <select onChange={handleInput} name="exercise_type">
-                <option>walk</option>
-                <option>run</option>
+              <select onChange={handleInput} name="exercise_id">
+                <option value={1}>walk</option>
+                <option value={2}>run</option>
               </select>
             </div>
           </div>
