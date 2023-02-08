@@ -1,16 +1,27 @@
 import React from "react";
-import HighScores from "./Highscores.jsx";
-import RecentExercises from "./Recent.jsx";
+import HighScores from "./Highscores/Highscores.jsx";
+import ExerciseSelection from "./InputExercise/ExerciseSelection.jsx";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import InputNewExercise from "./InputNewExercise.jsx";
+import InputNewExercise from "./InputExercise/InputNewExercise";
+
 import { useEffect, useState } from "react";
 
 function ExerciseHome() {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [walkData, setWalkData] = useState([]);
+
+  const fetchExerciseData = async () => {
+    const res = await fetch("http://localhost:4000/all_walk_data");
+    const data = await res.json();
+    await setWalkData(data);
+  };
+
+  useEffect(() => {
+    fetchExerciseData();
+  }, []);
 
   return (
     <div>
@@ -34,10 +45,10 @@ function ExerciseHome() {
           </div>
           <hr />
           <div>
-            <RecentExercises />
+            <ExerciseSelection walkData={walkData} />
           </div>
         </div>
-        <HighScores />
+        {/* <HighScores /> */}
       </div>
       <hr />
     </div>
