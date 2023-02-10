@@ -14,9 +14,14 @@ function ExerciseHome() {
   const [walkData, setWalkData] = useState([]);
 
   const fetchExerciseData = async () => {
-    const res = await fetch("http://localhost:4000/all_walk_data");
-    const data = await res.json();
-    await setWalkData(data);
+    try {
+      const res = await fetch("http://localhost:4000/all_walk_data");
+      const data = await res.json();
+      await setWalkData(data);
+      console.log(data);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {

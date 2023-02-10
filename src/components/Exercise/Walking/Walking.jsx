@@ -5,11 +5,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Graph from "../Graphs/WalkingGraph";
 import Carousel from "react-bootstrap/Carousel";
+import "../../../assets/custom.css";
+import "./css/Walking.css";
 
-const Walking = ({ walkData }) => {
+import RecentWalks from "./RecentWalks.jsx";
+const Walking = () => {
   const location = useLocation();
   const data = location.state && location.state.walkData;
-
   const [exerciseAttributes, setExereciseAttributes] = useState([
     {
       name: "Calories",
@@ -50,7 +52,7 @@ const Walking = ({ walkData }) => {
   return (
     <div className="container">
       <h1>Walking</h1>
-      <div className="container mt-5">
+      <div className=" container mt-5">
         <div className="row">
           <div className="col-sm border">
             <div>
@@ -67,9 +69,15 @@ const Walking = ({ walkData }) => {
               })}
             </Carousel>
           </div>
-          <div className="col-sm border">
+          <div className="recent-walks-container col-sm border">
             <div>
               <h4>Recent Walks</h4>
+              <hr />
+              <div>
+                {data.map((walk) => {
+                  return <RecentWalks walk={walk} />;
+                })}
+              </div>
             </div>
           </div>
         </div>
