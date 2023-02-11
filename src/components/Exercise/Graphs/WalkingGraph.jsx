@@ -23,7 +23,6 @@ const Graph = ({ graphData }) => {
 
     await setDataGraph(data);
   };
-  console.log(graphData);
   useEffect(() => {
     inputGraphData();
   }, []);
@@ -32,7 +31,8 @@ const Graph = ({ graphData }) => {
     <div>
       <div className="container">
         <LineChart
-          width={700}
+          style={{ width: "100%" }}
+          width={450}
           height={300}
           data={dataGraph}
           margin={{

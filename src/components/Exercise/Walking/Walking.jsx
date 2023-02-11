@@ -5,11 +5,14 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Graph from "../Graphs/WalkingGraph";
 import Carousel from "react-bootstrap/Carousel";
+import "../../../assets/custom.css";
+import "./css/Walking.css";
+import HikingIcon from "@mui/icons-material/Hiking";
 
-const Walking = ({ walkData }) => {
+import RecentWalks from "./RecentWalks.jsx";
+const Walking = () => {
   const location = useLocation();
   const data = location.state && location.state.walkData;
-
   const [exerciseAttributes, setExereciseAttributes] = useState([
     {
       name: "Calories",
@@ -22,6 +25,37 @@ const Walking = ({ walkData }) => {
     {
       name: "Distance",
       data: [],
+    },
+  ]);
+
+  const [totals, setTotals] = useState([
+    {
+      name: "Total Walks",
+      total: data.length,
+    },
+    {
+      name: "Total Hours",
+      total: data.reduce((acc, val) => {
+        return acc + Math.round(val.duration / 60);
+      }, 0),
+    },
+    {
+      name: "Total Calories",
+      total: data.reduce((acc, value) => {
+        return acc + value.calories;
+      }, 0),
+    },
+    {
+      name: "Total Steps",
+      total: data.reduce((acc, val) => {
+        return acc + val.steps;
+      }, 0),
+    },
+    {
+      name: "Total Distance",
+      total: data.reduce((acc, value) => {
+        return acc + value.distance;
+      }, 0),
     },
   ]);
 
@@ -47,12 +81,24 @@ const Walking = ({ walkData }) => {
     updateAttribute();
   }, []);
 
+  const longestWalks = () => {
+    const orderedWalksByTime = data.sort((a, b) => {
+      return b.duration - a.duration;
+    });
+    return orderedWalksByTime.map((item, key) => {
+      return <p key={key}> White Nancy: {item.duration} Minutes</p>;
+    });
+  };
+
   return (
     <div className="container">
-      <h1>Walking</h1>
-      <div className="container mt-5">
+      <div className="d-flex justify-content-center">
+        <h1>Walking</h1>
+        <HikingIcon className="mt-3" style={{ marginLeft: "1rem" }} />
+      </div>
+      <div className=" container mt-5">
         <div className="row">
-          <div className="col-sm border">
+          <div className="p-3 col-sm border">
             <div>
               <h4>Graph</h4>
             </div>
@@ -67,23 +113,42 @@ const Walking = ({ walkData }) => {
               })}
             </Carousel>
           </div>
-          <div className="col-sm border">
+          <div className="p-3 recent-walks-container col-sm border">
             <div>
               <h4>Recent Walks</h4>
+              <hr />
+              <div>
+                {data.map((walk) => {
+                  return <RecentWalks walk={walk} />;
+                })}
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div className="container">
         <div className="row">
-          <div className="col-sm border">
-            <div>
+          <div className="p-3 longest-walks col-sm border">
+            <div className="">
               <h4>Longest Walks</h4>
+
+              <div>{longestWalks()}</div>
             </div>
           </div>
-          <div className="col-sm border">
+          <div className="p-3 col-sm border">
             <div>
-              <h4>Most Calories</h4>
+              <h4>2023 Stats</h4>
+
+              {totals.map((item) => {
+                return (
+                  <div>
+                    <p>
+                      <strong>{item.name}: </strong>
+                      {item.total}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

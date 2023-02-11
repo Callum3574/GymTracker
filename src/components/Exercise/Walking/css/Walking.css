@@ -1,0 +1,16 @@
+.recent-walks-container,
+.longest-walks {
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+.walk-img {
+  height: 10rem;
+  width: 15rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.walk-card {
+  border-bottom: 1px solid gray;
+}
