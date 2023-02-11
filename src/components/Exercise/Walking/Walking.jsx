@@ -27,35 +27,45 @@ const Walking = () => {
       data: [],
     },
   ]);
+  const reduceTotals = (val) => {
+    let total = data.reduce((acc, value) => {
+      return acc + value[val];
+    }, 0);
+    return total;
+  };
 
   const [totals, setTotals] = useState([
     {
       name: "Total Walks",
       total: data.length,
+      avg: `${data.length / 7} walks per week`,
     },
     {
       name: "Total Hours",
-      total: data.reduce((acc, val) => {
-        return acc + Math.round(val.duration / 60);
-      }, 0),
+      total: Math.floor(reduceTotals("duration") / 60),
+      avg: `${
+        Math.ceil(reduceTotals("duration")) / data.length
+      } (mins) per day`,
     },
+
     {
       name: "Total Calories",
-      total: data.reduce((acc, value) => {
-        return acc + value.calories;
-      }, 0),
+      total: reduceTotals("calories"),
+      avg: `${
+        Math.floor(reduceTotals("calories")) / data.length
+      } calories per walk`,
     },
     {
       name: "Total Steps",
-      total: data.reduce((acc, val) => {
-        return acc + val.steps;
-      }, 0),
+      total: reduceTotals("steps"),
+      avg: `${Math.floor(reduceTotals("steps")) / data.length} steps per walk`,
     },
     {
       name: "Total Distance",
-      total: data.reduce((acc, value) => {
-        return acc + value.distance;
-      }, 0),
+      total: reduceTotals("distance"),
+      avg: `${
+        Math.floor(reduceTotals("distance")) / data.length
+      } (km) per walk`,
     },
   ]);
 
@@ -77,8 +87,10 @@ const Walking = () => {
       ];
     });
   };
+
   useEffect(() => {
     updateAttribute();
+    console.log(totals);
   }, []);
 
   const longestWalks = () => {
@@ -92,8 +104,8 @@ const Walking = () => {
 
   return (
     <div className="container">
-      <div className="d-flex justify-content-center">
-        <h1>Walking</h1>
+      <div className=" p-3 d-flex justify-content-center">
+        <h1>Welcome to Walking</h1>
         <HikingIcon className="mt-3" style={{ marginLeft: "1rem" }} />
       </div>
       <div className=" container mt-5">
@@ -136,19 +148,30 @@ const Walking = () => {
             </div>
           </div>
           <div className="p-3 col-sm border">
-            <div>
-              <h4>2023 Stats</h4>
-
-              {totals.map((item) => {
-                return (
-                  <div>
-                    <p>
-                      <strong>{item.name}: </strong>
-                      {item.total}
-                    </p>
-                  </div>
-                );
-              })}
+            <div className="d-flex justify-content-evenly">
+              <div>
+                <h4>2023 Stats</h4>
+                {totals.map((item) => {
+                  return (
+                    <div>
+                      <p>
+                        <strong>{item.name}: </strong>
+                        {item.total}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+              <div>
+                <h4>Averages</h4>
+                {totals.map((item) => {
+                  return (
+                    <div>
+                      <p>{item.avg}</p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

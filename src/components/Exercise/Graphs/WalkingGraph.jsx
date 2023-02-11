@@ -13,15 +13,15 @@ import {
 const Graph = ({ graphData }) => {
   const [dataGraph, setDataGraph] = useState([]);
 
-  const inputGraphData = async () => {
-    const data = await graphData.data.map((row) => {
+  const inputGraphData = () => {
+    const data = graphData.data.map((row) => {
       return {
         name: row[1].slice(0, 10),
         [graphData.name]: row[0],
       };
     });
 
-    await setDataGraph(data);
+    setDataGraph(data);
   };
   useEffect(() => {
     inputGraphData();

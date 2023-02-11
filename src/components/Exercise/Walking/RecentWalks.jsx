@@ -1,6 +1,9 @@
 import React from "react";
 import "./css/Walking.css";
+import Rating from "@mui/material/Rating";
+
 function RecentWalks({ walk }) {
+  console.log(walk);
   return (
     <div className="mt-4 walk-card d-flex justify-content-evenly">
       <div className="d-flex flex-column justify-content-evenly  w-100">
@@ -42,10 +45,16 @@ function RecentWalks({ walk }) {
         </div>
       </div>
       <div className="walk-img w-100">
-        <img
-          className="walk-img"
-          src="https://media-cdn.tripadvisor.com/media/photo-s/12/b7/9c/e6/nice-walk-beside-capability.jpg"
-        ></img>
+        <div>
+          <img
+            className="walk-img"
+            src="https://media-cdn.tripadvisor.com/media/photo-s/12/b7/9c/e6/nice-walk-beside-capability.jpg"
+            alt="walk-img"
+          ></img>
+        </div>
+        <div>
+          <Rating name="size-small" defaultValue={walk.rating} size="small" />
+        </div>
       </div>
     </div>
   );
