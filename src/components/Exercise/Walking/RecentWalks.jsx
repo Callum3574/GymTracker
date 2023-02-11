@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./css/Walking.css";
 import Rating from "@mui/material/Rating";
 
 function RecentWalks({ walk }) {
-  console.log(walk);
+  const updateRating = async () => {
+    try {
+      const data = await fetch("http://localhost:4000/update_rating", {
+        method: "PATCH",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ rating: 2, id: 23 }),
+      });
+      const res = await data.json();
+      console.log(res);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  useEffect(() => {}, [walk]);
+
   return (
     <div className="mt-4 walk-card d-flex justify-content-evenly">
       <div className="d-flex flex-column justify-content-evenly  w-100">
@@ -53,7 +67,12 @@ function RecentWalks({ walk }) {
           ></img>
         </div>
         <div>
-          <Rating name="size-small" defaultValue={walk.rating} size="small" />
+          <Rating
+            onClick={updateRating}
+            name="size-small"
+            defaultValue={walk.rating}
+            size="small"
+          />
         </div>
       </div>
     </div>
