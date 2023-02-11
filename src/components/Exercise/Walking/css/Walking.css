@@ -1,4 +1,5 @@
-.recent-walks-container {
+.recent-walks-container,
+.longest-walks {
   max-height: 400px;
   overflow-y: scroll;
 }

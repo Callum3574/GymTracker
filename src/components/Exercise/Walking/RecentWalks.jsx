@@ -1,30 +1,43 @@
 import React from "react";
 import "./css/Walking.css";
 function RecentWalks({ walk }) {
-  console.log(walk);
   return (
     <div className="mt-4 walk-card d-flex justify-content-evenly">
       <div className="d-flex flex-column justify-content-evenly  w-100">
         <div>
-          <h6>{walk.date.slice(0, 10)}</h6>
-        </div>
-        <div>
-          <p>Distance: {walk.distance}(km)</p>
+          <p>
+            <strong>Date:</strong> {walk.date.slice(0, 10)}
+          </p>
         </div>
         <div>
           <p>
-            <p>{walk.duration} minutes</p>
+            <strong>Distance: </strong>
+            {walk.distance}(km)
+          </p>
+        </div>
+        <div>
+          <p>
+            <p>
+              <strong>Duration: </strong>
+              {walk.duration} minutes
+            </p>
           </p>
         </div>
 
         <div>
           <p>
-            <p>{walk.steps} steps</p>
+            <p>
+              <strong>Steps: </strong>
+              {walk.steps} steps
+            </p>
           </p>
         </div>
         <div>
           <p>
-            <p>{walk.calories} calories</p>
+            <p>
+              <strong>Calories: </strong>
+              {walk.calories} calories
+            </p>
           </p>
         </div>
       </div>

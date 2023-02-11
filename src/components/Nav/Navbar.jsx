@@ -59,15 +59,18 @@ export default function HideAppBar(props) {
       <HideOnScroll {...props}>
         <div className="container">
           <AppBar>
-            <Toolbar>
+            <Toolbar className="nav-bar">
               <Typography variant="h5" component="div">
                 Progress Tracker
               </Typography>
-              <div className="d-flex flex-row justify-content-center mt-3 ml-5">
+              <div className="nav-items d-flex flex-row justify-content-center mt-3 ml-5">
                 {navItems.map((item) => {
                   return (
-                    <Link to={item.link}>
-                      <p style={{ cursor: "pointer" }} className="px-3">
+                    <Link className="a-button" to={item.link}>
+                      <p
+                        style={{ cursor: "pointer" }}
+                        className="a-button px-3"
+                      >
                         {item.name}
                       </p>
                     </Link>
