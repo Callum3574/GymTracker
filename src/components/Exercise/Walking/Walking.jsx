@@ -27,6 +27,7 @@ const Walking = () => {
       data: [],
     },
   ]);
+
   const reduceTotals = (val) => {
     let total = data.reduce((acc, value) => {
       return acc + value[val];
