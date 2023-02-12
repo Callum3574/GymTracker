@@ -1,22 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./css/Walking.css";
 import Rating from "@mui/material/Rating";
 
 function RecentWalks({ walk }) {
+  const [testRating, setTestRating] = useState(0);
+  const [newRating, setNewRating] = useState(walk.rating);
+
+  const handleNewRating = (e) => {
+    console.log(e.target.value);
+    setNewRating(e.target.value);
+  };
+
+  useEffect(() => {
+    updateRating();
+  }, [newRating]);
+
   const updateRating = async () => {
     try {
       const data = await fetch("http://localhost:4000/update_rating", {
         method: "PATCH",
         headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ rating: 2, id: 23 }),
+        body: JSON.stringify({ rating: newRating, id: walk.id }),
       });
       const res = await data.json();
-      console.log(res);
     } catch (e) {
       console.error(e);
     }
   };
-  useEffect(() => {}, [walk]);
+  useEffect(() => {}, [testRating]);
+  console.log(walk.id);
 
   return (
     <div className="mt-4 walk-card d-flex justify-content-evenly">
@@ -24,6 +36,12 @@ function RecentWalks({ walk }) {
         <div>
           <p>
             <strong>Date:</strong> {walk.date.slice(0, 10)}
+          </p>
+        </div>
+        <div>
+          <p>
+            <strong>id: </strong>
+            {walk.id}
           </p>
         </div>
         <div>
@@ -68,10 +86,11 @@ function RecentWalks({ walk }) {
         </div>
         <div>
           <Rating
-            onClick={updateRating}
             name="size-small"
-            defaultValue={walk.rating}
+            // defaultValue={walk.rating}
             size="small"
+            value={newRating}
+            onChange={handleNewRating}
           />
         </div>
       </div>
