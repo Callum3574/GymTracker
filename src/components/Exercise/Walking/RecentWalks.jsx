@@ -3,7 +3,6 @@ import "./css/Walking.css";
 import Rating from "@mui/material/Rating";
 
 function RecentWalks({ walk }) {
-  const [testRating, setTestRating] = useState(0);
   const [newRating, setNewRating] = useState(walk.rating);
 
   const handleNewRating = (e) => {
@@ -14,6 +13,8 @@ function RecentWalks({ walk }) {
   useEffect(() => {
     updateRating();
   }, [newRating]);
+
+  console.log(walk);
 
   const updateRating = async () => {
     try {
@@ -27,8 +28,6 @@ function RecentWalks({ walk }) {
       console.error(e);
     }
   };
-  useEffect(() => {}, [testRating]);
-  console.log(walk.id);
 
   return (
     <div className="mt-4 walk-card d-flex justify-content-evenly">
@@ -77,6 +76,9 @@ function RecentWalks({ walk }) {
         </div>
       </div>
       <div className="walk-img w-100">
+        <div>
+          <h4>{walk.location}</h4>
+        </div>
         <div>
           <img
             className="walk-img"
