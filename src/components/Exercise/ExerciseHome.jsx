@@ -4,6 +4,7 @@ import ExerciseSelection from "./InputExercise/ExerciseSelection.jsx";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import InputNewExercise from "./InputExercise/InputNewExercise";
+import { useAuth } from "../Contexts/AuthContext.jsx";
 
 import { useEffect, useState } from "react";
 
@@ -12,10 +13,14 @@ function ExerciseHome() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [walkData, setWalkData] = useState([]);
+  const { currentUser } = useAuth();
 
   const fetchExerciseData = async () => {
+    console.log(currentUser.uid);
     try {
-      const res = await fetch("http://localhost:4000/all_walk_data");
+      const res = await fetch(
+        `http://localhost:4000/all_walk_data/${currentUser.uid}`
+      );
       const data = await res.json();
       await setWalkData(data);
       console.log(data);

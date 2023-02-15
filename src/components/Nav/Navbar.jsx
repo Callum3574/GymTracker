@@ -11,6 +11,7 @@ import Slide from "@mui/material/Slide";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../assets/custom.css";
+import { useAuth } from "../Contexts/AuthContext.jsx";
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -35,6 +36,8 @@ HideOnScroll.propTypes = {
 };
 
 export default function HideAppBar(props) {
+  const { currentUser, logout } = useAuth();
+
   const [navItems, setNavItems] = useState([
     {
       name: "Home",
@@ -52,15 +55,15 @@ export default function HideAppBar(props) {
       name: "Calories",
       link: "/calories",
     },
-    {
-      name: "Login",
-      link: "/login",
-    },
-    {
-      name: "Signup",
-      link: "/signup",
-    },
   ]);
+
+  const handleLogOut = async () => {
+    try {
+      await logout();
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <React.Fragment>
@@ -85,6 +88,23 @@ export default function HideAppBar(props) {
                     </Link>
                   );
                 })}
+                {!currentUser ? (
+                  <Link className="a-button" to="/login">
+                    <p className="a-button px-3" style={{ cursor: "pointer" }}>
+                      Login
+                    </p>
+                  </Link>
+                ) : (
+                  <Link className="a-button" to="/home">
+                    <p
+                      onClick={handleLogOut}
+                      className="a-button px-3"
+                      style={{ cursor: "pointer" }}
+                    >
+                      Logout
+                    </p>
+                  </Link>
+                )}
               </div>
             </Toolbar>
           </AppBar>

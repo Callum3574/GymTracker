@@ -17,11 +17,9 @@ function Home() {
         <h1>Welcome to GYM Tracker</h1>
       </div>
       <div>
-        <h3>{currentUser.email}</h3>
+        <h3>{currentUser && currentUser.email + " " + currentUser.uid}</h3>
       </div>
-      <div>
-        <button onClick={handleLogOut}>Logout</button>
-      </div>
+      <div>{currentUser && <button onClick={handleLogOut}>Logout</button>}</div>
     </div>
   );
 }
