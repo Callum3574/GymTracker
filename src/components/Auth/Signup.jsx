@@ -53,11 +53,28 @@ export default function Signup() {
     console.log(currentCredentials);
   };
 
+  const handleUserSubmit = async (id) => {
+    console.log(id);
+    const res = await fetch("http://localhost:4000/create_user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    });
+    const data = await res.json();
+    console.log(data);
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      await signup(currentCredentials.email, currentCredentials.password);
+      const userCredential = await signup(
+        currentCredentials.email,
+        currentCredentials.password
+      );
+      handleUserSubmit(userCredential.user.uid);
     } catch (e) {
       console.error(e);
     }

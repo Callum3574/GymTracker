@@ -18,26 +18,50 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import ForgotPass from "./components/Auth/ForgotPass.jsx";
 import UpdateProfile from "./components/Auth/UpdateProfile.jsx";
 
+import { useAuth } from "./components/Contexts/AuthContext.jsx";
+import SignedInRoute from "./components/Auth/SignedIn.jsx";
+
 function App() {
   return (
     <div className="App container">
-      <Navbar />
       <AuthProvider>
+        <Navbar />
         <Routes>
-          <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/home" element={<Home />}></Route>
+          <Route path="/exercise_home" element={<ExerciseHome />}></Route>
+          <Route path="/exercise_home/walking" element={<Walking />}></Route>
           <Route
-            path="/home"
+            path="/login"
+            element={
+              <SignedInRoute>
+                <Login />
+              </SignedInRoute>
+            }
+          ></Route>
+          <Route
+            path="/signup"
+            element={
+              <SignedInRoute>
+                <Signup />
+              </SignedInRoute>
+            }
+          ></Route>
+          <Route
+            path="/forgot-password"
             element={
               <PrivateRoute>
-                <Home />
+                <ForgotPass />
               </PrivateRoute>
             }
           ></Route>
-          <Route path="/exercise_home" element={<ExerciseHome />}></Route>
-          <Route path="/exercise_home/walking" element={<Walking />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/forgot-password" element={<ForgotPass />}></Route>
-          <Route path="/update-profile" element={<UpdateProfile />}></Route>
+          <Route
+            path="/update-profile"
+            element={
+              <PrivateRoute>
+                <UpdateProfile />
+              </PrivateRoute>
+            }
+          ></Route>
         </Routes>
       </AuthProvider>
     </div>
