@@ -11,6 +11,7 @@ import Slide from "@mui/material/Slide";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../assets/custom.css";
+
 function HideOnScroll(props) {
   const { children, window } = props;
   const trigger = useScrollTrigger({
@@ -50,6 +51,14 @@ export default function HideAppBar(props) {
     {
       name: "Calories",
       link: "/calories",
+    },
+    {
+      name: "Login",
+      link: "/login",
+    },
+    {
+      name: "Signup",
+      link: "/signup",
     },
   ]);
 
