@@ -8,21 +8,21 @@ function Home() {
 
   const user = currentUser;
 
-  const checkAdmin = async () => {
-    if (user) {
-      const idToken = await user.getIdToken();
-      const res = await fetch("http://localhost:4000/verify_token", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ idToken }),
-      });
-      console.log(await res.json());
-    }
-  };
+  // const checkAdmin = async () => {
+  //   if (user) {
+  //     const idToken = await user.getIdToken();
+  //     const res = await fetch("http://localhost:4000/verify_token", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ idToken }),
+  //     });
+  //     console.log(await res.json());
+  //   }
+  // };
 
-  useEffect(() => {
-    checkAdmin();
-  }, []);
+  // useEffect(() => {
+  //   checkAdmin();
+  // }, []);
 
   const handleLogOut = async () => {
     try {

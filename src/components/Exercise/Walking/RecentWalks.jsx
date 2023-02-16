@@ -24,6 +24,7 @@ function RecentWalks({ walk }) {
         body: JSON.stringify({ rating: newRating, id: walk.id }),
       });
       const res = await data.json();
+      console.log(res);
     } catch (e) {
       console.error(e);
     }
@@ -89,9 +90,9 @@ function RecentWalks({ walk }) {
         <div>
           <Rating
             name="size-small"
-            // defaultValue={walk.rating}
+            defaultValue={parseInt(newRating)}
             size="small"
-            value={newRating}
+            value={walk.rating}
             onChange={handleNewRating}
           />
         </div>

@@ -3,8 +3,12 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Dropdown from "react-bootstrap/Dropdown";
+import { useAuth } from "../../Contexts/AuthContext.jsx";
+import Rating from "@mui/material/Rating";
 
 function InputNewExercise({ handleClose, show }) {
+  const { currentUser } = useAuth();
+  console.log(currentUser.uid);
   const [inputtedExercise, setInputtedExercise] = useState({
     exercise_id: 0,
     duration: 0,
@@ -12,6 +16,9 @@ function InputNewExercise({ handleClose, show }) {
     steps: 0,
     date: "",
     distance: 0,
+    user_id: currentUser.uid,
+    location: "",
+    rating: 0,
   });
 
   const handleInput = (e) => {
@@ -85,12 +92,28 @@ function InputNewExercise({ handleClose, show }) {
               />
               <Form.Label>Duration (mins)</Form.Label>
               <Form.Control
-                type="Duration"
+                type="number"
                 placeholder="duration"
                 autoFocus
                 name="duration"
                 onChange={handleInput}
               />
+              <Form.Label>Location</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="location"
+                autoFocus
+                name="location"
+                onChange={handleInput}
+              />
+              <div>
+                <Rating
+                  name="rating"
+                  defaultValue={0}
+                  size="small"
+                  onChange={handleInput}
+                />
+              </div>
             </Form.Group>
           </Form>
         </Modal.Body>

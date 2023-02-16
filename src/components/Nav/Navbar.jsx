@@ -8,7 +8,7 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Slide from "@mui/material/Slide";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../assets/custom.css";
 import { useAuth } from "../Contexts/AuthContext.jsx";
@@ -37,6 +37,24 @@ HideOnScroll.propTypes = {
 
 export default function HideAppBar(props) {
   const { currentUser, logout } = useAuth();
+  const user = currentUser;
+
+  const checkAdmin = async () => {
+    if (user) {
+      const idToken = await user.getIdToken();
+      const res = await fetch("http://localhost:4000/verify_token", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken }),
+      });
+      console.log(await res.json());
+      props.setIsAdmin(true);
+    }
+  };
+
+  useEffect(() => {
+    checkAdmin();
+  });
 
   const [navItems, setNavItems] = useState([
     {
@@ -60,6 +78,7 @@ export default function HideAppBar(props) {
   const handleLogOut = async () => {
     try {
       await logout();
+      props.setIsAdmin(false);
     } catch (e) {
       console.error(e);
     }
@@ -102,6 +121,13 @@ export default function HideAppBar(props) {
                       style={{ cursor: "pointer" }}
                     >
                       Logout
+                    </p>
+                  </Link>
+                )}
+                {props.isAdmin && (
+                  <Link className="a-button" to="/dashboard">
+                    <p className="a-button px-3" style={{ cursor: "pointer" }}>
+                      Dashboard
                     </p>
                   </Link>
                 )}
