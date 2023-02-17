@@ -16,13 +16,12 @@ function ExerciseHome() {
   const { currentUser } = useAuth();
 
   const fetchExerciseData = async () => {
-    console.log(currentUser.uid);
     try {
       const res = await fetch(
         `http://localhost:4000/all_walk_data/${currentUser.uid}`
       );
       const data = await res.json();
-      await setWalkData(data);
+      setWalkData(data);
       console.log(data);
     } catch (e) {
       console.error(e);

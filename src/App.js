@@ -1,6 +1,5 @@
 import "./App.css";
 import Home from "./components/Home/Home.jsx";
-import Navbar from "./components/Nav/Navbar";
 import "./assets/custom.css";
 import {
   BrowserRouter as Router,
@@ -19,15 +18,15 @@ import ForgotPass from "./components/Auth/ForgotPass.jsx";
 import UpdateProfile from "./components/Auth/UpdateProfile.jsx";
 import SignedInRoute from "./components/Auth/SignedIn.jsx";
 import { useState, useEffect } from "react";
+import Community from "./components/Community/Community.jsx";
+import ResponsiveAppBar from "./components/Nav/Nav.jsx";
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
-
-  useEffect(() => {}, [isAdmin]);
 
   return (
     <div className="App container">
       <AuthProvider>
-        <Navbar isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+        <ResponsiveAppBar isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
         <Routes>
           <Route path="/home" element={<Home />}></Route>
           <Route path="/exercise_home" element={<ExerciseHome />}></Route>
@@ -36,7 +35,7 @@ function App() {
             path="/login"
             element={
               <SignedInRoute>
-                <Login />
+                <Login setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
               </SignedInRoute>
             }
           ></Route>
@@ -64,6 +63,7 @@ function App() {
               </PrivateRoute>
             }
           ></Route>
+          <Route path="/community" element={<Community />}></Route>
         </Routes>
       </AuthProvider>
     </div>

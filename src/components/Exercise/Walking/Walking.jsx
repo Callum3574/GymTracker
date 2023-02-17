@@ -8,9 +8,34 @@ import Carousel from "react-bootstrap/Carousel";
 import "../../../assets/custom.css";
 import "./css/Walking.css";
 import HikingIcon from "@mui/icons-material/Hiking";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import AltRouteIcon from "@mui/icons-material/AltRoute";
+import RunCircleIcon from "@mui/icons-material/RunCircle";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import Overview from "../Walking/components/Overview.jsx";
+import { useAuth } from "../../Contexts/AuthContext.jsx";
+import Divider from "@mui/material/Divider";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import { styled } from "@mui/material/styles";
+import Messages from "../Walking/components/Messages.jsx";
+import RecentWalksSect from "../Walking/components/RecentWalks";
+import checkUser from "../../Auth/CheckUser";
 
-import RecentWalks from "./RecentWalks.jsx";
 const Walking = () => {
+  const { currentUser } = useAuth();
+  const [userLoggedIn, setUserLoggedIn] = useState("");
+
+  useEffect(() => {
+    const checkingUserName = async () => {
+      const user = await checkUser(currentUser);
+      setUserLoggedIn(user);
+    };
+    if (currentUser) {
+      checkingUserName();
+    }
+  }, []);
+
   const location = useLocation();
   const data = location.state && location.state.walkData;
   const [exerciseAttributes, setExereciseAttributes] = useState([
@@ -37,36 +62,42 @@ const Walking = () => {
 
   const [totals, setTotals] = useState([
     {
-      name: "Total Walks",
+      name: "Walks",
+      icon: <HikingIcon className="mt-3" style={{ fontSize: "4rem" }} />,
       total: data.length,
       avg: `${data.length / 7} walks per week`,
     },
     {
-      name: "Total Hours",
-      total: Math.floor(reduceTotals("duration") / 60),
+      name: "Distance",
+      icon: <AltRouteIcon className="mt-3" style={{ fontSize: "4rem" }} />,
+      total: reduceTotals("distance") + " " + "(km)",
       avg: `${
-        Math.ceil(reduceTotals("duration")) / data.length
-      } (mins) per day`,
+        Math.floor(reduceTotals("distance")) / data.length
+      } (km) per walk`,
     },
 
     {
-      name: "Total Calories",
+      name: "Calories",
+      icon: <FitnessCenterIcon className="mt-3" style={{ fontSize: "4rem" }} />,
+
       total: reduceTotals("calories"),
       avg: `${
         Math.floor(reduceTotals("calories")) / data.length
       } calories per walk`,
     },
     {
-      name: "Total Steps",
+      name: "Steps",
+      icon: <RunCircleIcon className="mt-3" style={{ fontSize: "4rem" }} />,
       total: reduceTotals("steps"),
       avg: `${Math.floor(reduceTotals("steps")) / data.length} steps per walk`,
     },
     {
-      name: "Total Distance",
-      total: reduceTotals("distance"),
+      name: "Hours",
+      icon: <AccessTimeIcon className="mt-3" style={{ fontSize: "4rem" }} />,
+      total: Math.floor(reduceTotals("duration") / 60),
       avg: `${
-        Math.floor(reduceTotals("distance")) / data.length
-      } (km) per walk`,
+        Math.ceil(reduceTotals("duration")) / data.length
+      } (mins) per day`,
     },
   ]);
 
@@ -94,18 +125,83 @@ const Walking = () => {
     console.log(totals);
   }, []);
 
-  const longestWalks = () => {
-    const orderedWalksByTime = data.sort((a, b) => {
-      return b.duration - a.duration;
-    });
-    return orderedWalksByTime.map((item, key) => {
-      return <p key={key}> White Nancy: {item.duration} Minutes</p>;
-    });
-  };
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  }));
 
   return (
     <div className="container">
-      <div className=" p-3 d-flex justify-content-center">
+      <div className="container mt-3 d-flex  ">
+        <h5>Hi {userLoggedIn.name}, Welcome Back</h5>
+      </div>
+      <div>
+        <Overview totals={totals} />
+      </div>
+      <div>
+        <hr className="mt" />
+      </div>
+      <div className="">
+        <Container>
+          <Stack
+            direction="row"
+            divider={<Divider orientation="vertical" flexItem />}
+            spacing={2}
+            justifyContent="start"
+          >
+            <Item>
+              <Carousel slide className="carousel">
+                {exerciseAttributes.map((graphData) => {
+                  return (
+                    <Carousel.Item>
+                      <h3>{graphData.name}</h3>
+                      <Graph graphData={graphData} />
+                    </Carousel.Item>
+                  );
+                })}
+              </Carousel>
+            </Item>
+            <Item>
+              <Messages />
+            </Item>
+          </Stack>
+        </Container>
+      </div>
+      <hr />
+      <div>
+        <Container>
+          <Stack
+            direction="row"
+            divider={<Divider orientation="vertical" flexItem />}
+            spacing={2}
+            justifyContent="start"
+          >
+            <Item>
+              <Messages />
+            </Item>
+            <Item className="w-75">
+              <div className="recent-walks-box d-flex flex-column ">
+                <h4>Recent Walks</h4>
+                {data.map((walk) => {
+                  return <RecentWalksSect walk={walk} />;
+                })}
+              </div>
+            </Item>
+          </Stack>
+        </Container>
+      </div>
+      <hr />
+    </div>
+  );
+};
+
+export default Walking;
+
+{
+  /* <div className=" p-3 d-flex justify-content-center">
         <h1>Welcome to Walking</h1>
         <HikingIcon className="mt-3" style={{ marginLeft: "1rem" }} />
       </div>
@@ -176,9 +272,5 @@ const Walking = () => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
-};
-
-export default Walking;
+      </div> */
+}
