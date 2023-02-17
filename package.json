@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@date-io/jalaali": "^2.16.1",
+    "@dicebear/collection": "^5.3.4",
+    "@dicebear/core": "^5.3.4",
     "@emotion/react": "^11.10.5",
     "@emotion/style": "^0.8.0",
     "@emotion/styled": "^11.10.5",
@@ -25,6 +27,7 @@
     "react-router": "^6.8.0",
     "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.1",
+    "react-share": "^4.4.1",
     "recharts": "^2.3.2",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"

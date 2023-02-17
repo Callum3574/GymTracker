@@ -32,7 +32,7 @@ const Graph = ({ graphData }) => {
       <div className="container">
         <LineChart
           style={{ width: "100%" }}
-          width={440}
+          width={800}
           height={300}
           data={dataGraph}
           margin={{

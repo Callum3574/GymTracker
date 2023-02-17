@@ -12,9 +12,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../Contexts/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
+import checkAdmin from "../Auth/AuthAdmin";
+
 function Copyright(props) {
   return (
     <Typography
@@ -35,7 +37,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Login() {
+export default function Login({ setIsAdmin }) {
   const navigate = useNavigate();
   const [currentCredentials, setCurrentCredentials] = useState({
     email: "",
@@ -43,7 +45,6 @@ export default function Login() {
   });
 
   const [loading, setLoading] = useState(false);
-
   const { login, currentUser } = useAuth();
 
   const handleLoginCredentials = (event) => {
