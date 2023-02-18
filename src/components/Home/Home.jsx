@@ -1,12 +1,8 @@
 import React from "react";
-import { useEffect } from "react";
 import { useAuth } from "../Contexts/AuthContext.jsx";
-import { auth } from "../../firebase.js";
-import checkAdmin from "../Auth/AuthAdmin";
 
 function Home() {
   const { currentUser, logout } = useAuth();
-  const user = currentUser;
   const handleLogOut = async () => {
     try {
       await logout();

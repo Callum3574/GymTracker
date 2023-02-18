@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Graph from "../Graphs/WalkingGraph";
 import Carousel from "react-bootstrap/Carousel";
 import "../../../assets/custom.css";
@@ -21,10 +19,15 @@ import { styled } from "@mui/material/styles";
 import Messages from "../Walking/components/Messages.jsx";
 import RecentWalksSect from "../Walking/components/RecentWalks";
 import checkUser from "../../Auth/CheckUser";
+import InputNewExercise from "../InputExercise/InputNewExercise.jsx";
+import Button from "@mui/material/Button";
 
 const Walking = () => {
   const { currentUser } = useAuth();
   const [userLoggedIn, setUserLoggedIn] = useState("");
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     const checkingUserName = async () => {
@@ -179,9 +182,25 @@ const Walking = () => {
             spacing={2}
             justifyContent="start"
           >
-            <Item>
-              <Messages />
+            <Item className="w-25">
+              <Container>
+                <div>
+                  <h4>Walking</h4>
+                </div>
+                <div>
+                  <Button onClick={handleShow} varient="text">
+                    Log new exercise
+                  </Button>
+                  <Button varient="text">View all exercises</Button>
+                </div>
+              </Container>
             </Item>
+            <div style={{ marginBottom: "20px" }}>
+              {show && (
+                <InputNewExercise handleClose={handleClose} show={show} />
+              )}
+            </div>
+
             <Item className="w-75">
               <div className="recent-walks-box d-flex flex-column ">
                 <h4>Recent Walks</h4>
@@ -199,78 +218,3 @@ const Walking = () => {
 };
 
 export default Walking;
-
-{
-  /* <div className=" p-3 d-flex justify-content-center">
-        <h1>Welcome to Walking</h1>
-        <HikingIcon className="mt-3" style={{ marginLeft: "1rem" }} />
-      </div>
-      <div className=" container mt-5">
-        <div className="row">
-          <div className="p-3 col-sm border">
-            <div>
-              <h4>Graph</h4>
-            </div>
-            <Carousel slide>
-              {exerciseAttributes.map((graphData) => {
-                return (
-                  <Carousel.Item>
-                    <h3>{graphData.name}</h3>
-                    <Graph graphData={graphData} />
-                  </Carousel.Item>
-                );
-              })}
-            </Carousel>
-          </div>
-          <div className="p-3 recent-walks-container col-sm border">
-            <div>
-              <h4>Recent Walks</h4>
-              <hr />
-              <div>
-                {data.map((walk) => {
-                  return <RecentWalks walk={walk} />;
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container">
-        <div className="row">
-          <div className="p-3 longest-walks col-sm border">
-            <div className="">
-              <h4>Longest Walks</h4>
-
-              <div>{longestWalks()}</div>
-            </div>
-          </div>
-          <div className="p-3 col-sm border">
-            <div className="d-flex justify-content-evenly">
-              <div>
-                <h4>2023 Stats</h4>
-                {totals.map((item) => {
-                  return (
-                    <div>
-                      <p>
-                        <strong>{item.name}: </strong>
-                        {item.total}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-              <div>
-                <h4>Averages</h4>
-                {totals.map((item) => {
-                  return (
-                    <div>
-                      <p>{item.avg}</p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */
-}

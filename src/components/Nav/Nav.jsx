@@ -18,8 +18,6 @@ import { useAuth } from "../Contexts/AuthContext.jsx";
 import checkAdmin from "../Auth/AuthAdmin";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import checkUser from "../Auth/CheckUser";
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar({ setIsAdmin, isAdmin }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

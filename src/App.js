@@ -1,13 +1,7 @@
 import "./App.css";
 import Home from "./components/Home/Home.jsx";
 import "./assets/custom.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Link,
-  Switch,
-} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ExerciseHome from "./components/Exercise/ExerciseHome.jsx";
 import Walking from "./components/Exercise/Walking/Walking.jsx";
 import Login from "./components/Auth/Login.jsx";
@@ -17,7 +11,7 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import ForgotPass from "./components/Auth/ForgotPass.jsx";
 import UpdateProfile from "./components/Auth/UpdateProfile.jsx";
 import SignedInRoute from "./components/Auth/SignedIn.jsx";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Community from "./components/Community/Community.jsx";
 import ResponsiveAppBar from "./components/Nav/Nav.jsx";
 function App() {
