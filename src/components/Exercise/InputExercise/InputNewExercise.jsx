@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import Dropdown from "react-bootstrap/Dropdown";
 import { useAuth } from "../../Contexts/AuthContext.jsx";
 import Rating from "@mui/material/Rating";
 
@@ -30,15 +29,19 @@ function InputNewExercise({ handleClose, show }) {
   };
 
   const handleSubmit = async () => {
-    const response = await fetch("http://localhost:4000/input_exercise", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(inputtedExercise),
-    });
-    const data = await response.json();
-    console.log(data);
+    try {
+      const response = await fetch("http://localhost:4000/input_exercise", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inputtedExercise),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

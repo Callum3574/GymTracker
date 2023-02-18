@@ -1,13 +1,12 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 function Overview({ totals }) {
   const [spacing, setSpacing] = React.useState(4);
 
-  const handleChange = (event) => {
-    setSpacing(Number(event.target.value));
-  };
+  // const handleChange = (event) => {
+  //   setSpacing(Number(event.target.value));
+  // };
 
   return (
     <div>

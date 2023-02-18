@@ -12,10 +12,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "../Contexts/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
-import checkAdmin from "../Auth/AuthAdmin";
 
 function Copyright(props) {
   return (
@@ -37,33 +36,29 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Login({ setIsAdmin }) {
+export default function Login() {
   const navigate = useNavigate();
   const [currentCredentials, setCurrentCredentials] = useState({
     email: "",
     password: "",
   });
 
-  const [loading, setLoading] = useState(false);
-  const { login, currentUser } = useAuth();
+  const { login } = useAuth();
 
   const handleLoginCredentials = (event) => {
     setCurrentCredentials((prev) => {
       return { ...prev, [event.target.name]: event.target.value };
     });
-    console.log(currentCredentials);
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
       await login(currentCredentials.email, currentCredentials.password);
       navigate("/home");
     } catch (e) {
       console.error(e);
     }
-    setLoading(false);
   };
   return (
     <ThemeProvider theme={theme}>

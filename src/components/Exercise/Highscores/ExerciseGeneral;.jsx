@@ -1,7 +1,5 @@
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 import Display from "./Display.jsx";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 function ExerciseGeneral() {
   const [generalExercises, setGeneralExercises] = useState([
     {

@@ -5,12 +5,7 @@ import { styled } from "@mui/material/styles";
 import React, { useEffect, useState } from "react";
 import Rating from "@mui/material/Rating";
 
-import {
-  FacebookIcon,
-  TwitterIcon,
-  WhatsappIcon,
-  PinterestIcon,
-} from "react-share";
+import { FacebookIcon, TwitterIcon, WhatsappIcon } from "react-share";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",

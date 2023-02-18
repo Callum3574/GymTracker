@@ -44,7 +44,7 @@ export default function Signup() {
   });
   const [loading, setLoading] = useState(false);
 
-  const { signup, currentUser } = useAuth();
+  const { signup } = useAuth();
 
   const handleSignupCredentials = (event) => {
     setCurrentCredentials((prev) => {
