@@ -14,6 +14,10 @@ import SignedInRoute from "./components/Auth/SignedIn.jsx";
 import { useState } from "react";
 import Community from "./components/Community/Community.jsx";
 import ResponsiveAppBar from "./components/Nav/Nav.jsx";
+import ChatPage from "./components/Chat/ChatPage.jsx";
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:4000");
+
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -58,6 +62,10 @@ function App() {
             }
           ></Route>
           <Route path="/community" element={<Community />}></Route>
+          <Route
+            path="/messages"
+            element={<ChatPage socket={socket} />}
+          ></Route>
         </Routes>
       </AuthProvider>
     </div>
