@@ -68,15 +68,13 @@ const Walking = () => {
       name: "Walks",
       icon: <HikingIcon className="mt-3" style={{ fontSize: "4rem" }} />,
       total: data.length,
-      avg: `${data.length / 7} walks per week`,
+      avg: `${Math.ceil(data.length / 7)} walks per week`,
     },
     {
       name: "Distance",
       icon: <AltRouteIcon className="mt-3" style={{ fontSize: "4rem" }} />,
       total: reduceTotals("distance") + " " + "(km)",
-      avg: `${
-        Math.floor(reduceTotals("distance")) / data.length
-      } (km) per walk`,
+      avg: `${Math.ceil(reduceTotals("distance") / data.length)} (km) per walk`,
     },
 
     {
@@ -84,9 +82,9 @@ const Walking = () => {
       icon: <FitnessCenterIcon className="mt-3" style={{ fontSize: "4rem" }} />,
 
       total: reduceTotals("calories"),
-      avg: `${
-        Math.floor(reduceTotals("calories")) / data.length
-      } calories per walk`,
+      avg: `${Math.ceil(
+        reduceTotals("calories") / data.length
+      )} calories per walk`,
     },
     {
       name: "Steps",
@@ -202,11 +200,13 @@ const Walking = () => {
             </div>
 
             <Item className="w-75">
-              <div className="recent-walks-box d-flex flex-column ">
+              <div className="d-flex flex-column ">
                 <h4>Recent Walks</h4>
-                {data.map((walk) => {
-                  return <RecentWalksSect walk={walk} />;
-                })}
+                <div className="recent-walks-box">
+                  {data.map((walk) => {
+                    return <RecentWalksSect walk={walk} />;
+                  })}
+                </div>
               </div>
             </Item>
           </Stack>
