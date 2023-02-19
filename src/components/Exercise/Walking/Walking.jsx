@@ -21,6 +21,7 @@ import RecentWalksSect from "../Walking/components/RecentWalks";
 import checkUser from "../../Auth/CheckUser";
 import InputNewExercise from "../InputExercise/InputNewExercise.jsx";
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 const Walking = () => {
   const { currentUser } = useAuth();
@@ -90,7 +91,7 @@ const Walking = () => {
       name: "Steps",
       icon: <RunCircleIcon className="mt-3" style={{ fontSize: "4rem" }} />,
       total: reduceTotals("steps"),
-      avg: `${Math.floor(reduceTotals("steps")) / data.length} steps per walk`,
+      avg: `${Math.ceil(reduceTotals("steps")) / data.length} steps per walk`,
     },
     {
       name: "Hours",
@@ -145,33 +146,6 @@ const Walking = () => {
       <div>
         <hr className="mt" />
       </div>
-      <div className="">
-        <Container>
-          <Stack
-            direction="row"
-            divider={<Divider orientation="vertical" flexItem />}
-            spacing={2}
-            justifyContent="start"
-          >
-            <Item>
-              <Carousel slide className="carousel">
-                {exerciseAttributes.map((graphData) => {
-                  return (
-                    <Carousel.Item>
-                      <h3>{graphData.name}</h3>
-                      <Graph graphData={graphData} />
-                    </Carousel.Item>
-                  );
-                })}
-              </Carousel>
-            </Item>
-            <Item>
-              <Messages />
-            </Item>
-          </Stack>
-        </Container>
-      </div>
-      <hr />
       <div>
         <Container>
           <Stack
@@ -201,7 +175,10 @@ const Walking = () => {
 
             <Item className="w-75">
               <div className="d-flex flex-column ">
-                <h4>Recent Walks</h4>
+                <div className="d-flex justify-content-evenly">
+                  <h4>Recent Walks</h4>
+                </div>
+
                 <div className="recent-walks-box">
                   {data.map((walk) => {
                     return <RecentWalksSect walk={walk} />;
@@ -212,6 +189,34 @@ const Walking = () => {
           </Stack>
         </Container>
       </div>
+      <hr />
+      <div className="">
+        <Container>
+          <Stack
+            direction="row"
+            divider={<Divider orientation="vertical" flexItem />}
+            spacing={2}
+            justifyContent="start"
+          >
+            <Item className="w-75">
+              <Carousel slide className="carousel">
+                {exerciseAttributes.map((graphData) => {
+                  return (
+                    <Carousel.Item>
+                      <h3>{graphData.name}</h3>
+                      <Graph graphData={graphData} />
+                    </Carousel.Item>
+                  );
+                })}
+              </Carousel>
+            </Item>
+            <Item className="w-25">
+              <Messages />
+            </Item>
+          </Stack>
+        </Container>
+      </div>
+
       <hr />
     </div>
   );
