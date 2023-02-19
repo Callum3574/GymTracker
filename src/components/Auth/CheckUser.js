@@ -6,8 +6,7 @@ const checkUser = async (user) => {
       const data = await res.json();
       return {
         name: data.name[0].firstname,
-        // icon: `https://api.dicebear.com/5.x/initials/svg?seed=${data.name[0].firstname}`,
-        icon: `https://api.dicebear.com/5.x/avataaars/svg?seed=${data.name[0].firstname}`,
+        icon: `https://api.dicebear.com/5.x/initials/svg?seed=${data.name[0].firstname}`,
       };
     }
   } catch (e) {
