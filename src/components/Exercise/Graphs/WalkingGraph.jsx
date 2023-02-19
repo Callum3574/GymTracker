@@ -13,17 +13,20 @@ const Graph = ({ graphData }) => {
   const [dataGraph, setDataGraph] = useState([]);
 
   const inputGraphData = () => {
-    const data = graphData.data.map((row) => {
-      return {
-        name: row[1].slice(0, 10),
-        [graphData.name]: row[0],
-      };
-    });
+    const data = graphData.data
+      .sort((a, b) => b - a)
+      .map((row) => {
+        return {
+          name: row[1].slice(0, 10),
+          [graphData.name]: row[0],
+        };
+      });
 
     setDataGraph(data);
   };
   useEffect(() => {
     inputGraphData();
+    console.log(graphData);
   }, []);
 
   return (

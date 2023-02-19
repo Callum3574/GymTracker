@@ -21,6 +21,7 @@ import RecentWalksSect from "../Walking/components/RecentWalks";
 import checkUser from "../../Auth/CheckUser";
 import InputNewExercise from "../InputExercise/InputNewExercise.jsx";
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 const Walking = () => {
   const { currentUser } = useAuth();
@@ -68,15 +69,13 @@ const Walking = () => {
       name: "Walks",
       icon: <HikingIcon className="mt-3" style={{ fontSize: "4rem" }} />,
       total: data.length,
-      avg: `${data.length / 7} walks per week`,
+      avg: `${Math.ceil(data.length / 7)} walks per week`,
     },
     {
       name: "Distance",
       icon: <AltRouteIcon className="mt-3" style={{ fontSize: "4rem" }} />,
       total: reduceTotals("distance") + " " + "(km)",
-      avg: `${
-        Math.floor(reduceTotals("distance")) / data.length
-      } (km) per walk`,
+      avg: `${Math.ceil(reduceTotals("distance") / data.length)} (km) per walk`,
     },
 
     {
@@ -84,15 +83,15 @@ const Walking = () => {
       icon: <FitnessCenterIcon className="mt-3" style={{ fontSize: "4rem" }} />,
 
       total: reduceTotals("calories"),
-      avg: `${
-        Math.floor(reduceTotals("calories")) / data.length
-      } calories per walk`,
+      avg: `${Math.ceil(
+        reduceTotals("calories") / data.length
+      )} calories per walk`,
     },
     {
       name: "Steps",
       icon: <RunCircleIcon className="mt-3" style={{ fontSize: "4rem" }} />,
       total: reduceTotals("steps"),
-      avg: `${Math.floor(reduceTotals("steps")) / data.length} steps per walk`,
+      avg: `${Math.ceil(reduceTotals("steps")) / data.length} steps per walk`,
     },
     {
       name: "Hours",
@@ -147,33 +146,6 @@ const Walking = () => {
       <div>
         <hr className="mt" />
       </div>
-      <div className="">
-        <Container>
-          <Stack
-            direction="row"
-            divider={<Divider orientation="vertical" flexItem />}
-            spacing={2}
-            justifyContent="start"
-          >
-            <Item>
-              <Carousel slide className="carousel">
-                {exerciseAttributes.map((graphData) => {
-                  return (
-                    <Carousel.Item>
-                      <h3>{graphData.name}</h3>
-                      <Graph graphData={graphData} />
-                    </Carousel.Item>
-                  );
-                })}
-              </Carousel>
-            </Item>
-            <Item>
-              <Messages />
-            </Item>
-          </Stack>
-        </Container>
-      </div>
-      <hr />
       <div>
         <Container>
           <Stack
@@ -202,16 +174,49 @@ const Walking = () => {
             </div>
 
             <Item className="w-75">
-              <div className="recent-walks-box d-flex flex-column ">
-                <h4>Recent Walks</h4>
-                {data.map((walk) => {
-                  return <RecentWalksSect walk={walk} />;
-                })}
+              <div className="d-flex flex-column ">
+                <div className="d-flex justify-content-evenly">
+                  <h4>Recent Walks</h4>
+                </div>
+
+                <div className="recent-walks-box">
+                  {data.map((walk) => {
+                    return <RecentWalksSect walk={walk} />;
+                  })}
+                </div>
               </div>
             </Item>
           </Stack>
         </Container>
       </div>
+      <hr />
+      <div className="">
+        <Container>
+          <Stack
+            direction="row"
+            divider={<Divider orientation="vertical" flexItem />}
+            spacing={2}
+            justifyContent="start"
+          >
+            <Item className="w-75">
+              <Carousel slide className="carousel">
+                {exerciseAttributes.map((graphData) => {
+                  return (
+                    <Carousel.Item>
+                      <h3>{graphData.name}</h3>
+                      <Graph graphData={graphData} />
+                    </Carousel.Item>
+                  );
+                })}
+              </Carousel>
+            </Item>
+            <Item className="w-25">
+              <Messages />
+            </Item>
+          </Stack>
+        </Container>
+      </div>
+
       <hr />
     </div>
   );

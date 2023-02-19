@@ -1,0 +1,4 @@
+.input-container {
+  overflow-y: scroll;
+  max-height: 400px;
+}

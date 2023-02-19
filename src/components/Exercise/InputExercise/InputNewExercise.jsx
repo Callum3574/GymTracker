@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { useAuth } from "../../Contexts/AuthContext.jsx";
 import Rating from "@mui/material/Rating";
+import "./css/Input.css";
 
 function InputNewExercise({ handleClose, show }) {
   const { currentUser } = useAuth();
@@ -45,7 +46,7 @@ function InputNewExercise({ handleClose, show }) {
   };
 
   return (
-    <div className="container">
+    <div className=" container">
       <Modal style={{ marginTop: "5rem" }} show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Input new exercise</Modal.Title>
@@ -60,7 +61,7 @@ function InputNewExercise({ handleClose, show }) {
             </div>
           </div>
           <hr />
-          <Form>
+          <Form className="input-container">
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Date</Form.Label>
               <Form.Control
@@ -109,8 +110,10 @@ function InputNewExercise({ handleClose, show }) {
                 name="location"
                 onChange={handleInput}
               />
-              <div>
+              <div className="mt-2">
+                <Form.Label>Rating</Form.Label>
                 <Rating
+                  className=" px-2"
                   name="rating"
                   defaultValue={0}
                   size="small"
