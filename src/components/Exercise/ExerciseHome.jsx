@@ -3,13 +3,11 @@ import ExerciseSelection from "./InputExercise/ExerciseSelection.jsx";
 import Button from "@mui/material/Button";
 import InputNewExercise from "./InputExercise/InputNewExercise";
 import { useAuth } from "../Contexts/AuthContext.jsx";
-
 import { useEffect, useState } from "react";
+import userLevel from "../Rank/UserLevel";
+import checkUser from "../Auth/CheckUser.js";
 
 function ExerciseHome() {
-  // const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
   const [walkData, setWalkData] = useState([]);
   const { currentUser } = useAuth();
 
@@ -29,6 +27,10 @@ function ExerciseHome() {
     fetchExerciseData();
   }, []);
 
+  useEffect(() => {
+    userLevel();
+  }, [walkData]);
+
   return (
     <div>
       <div className="container">
@@ -37,17 +39,6 @@ function ExerciseHome() {
             <div>
               <h3>Welcome to Exercises</h3>
             </div>
-            {/* <div style={{ marginBottom: "20px" }}>
-              {show && (
-                <InputNewExercise handleClose={handleClose} show={show} />
-              )}
-            </div>
-            <div>
-              <Button onClick={handleShow} varient="text">
-                Log new exercise
-              </Button>
-              <Button varient="text">View all exercises</Button>
-            </div> */}
           </div>
           <hr />
           <div>

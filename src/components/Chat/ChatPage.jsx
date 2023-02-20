@@ -8,7 +8,14 @@ import { useAuth } from "../Contexts/AuthContext.jsx";
 const ChatPage = ({ socket }) => {
   const [currentUserLogged, setCurrentUserLogged] = useState("");
   const [messages, setMessages] = useState("");
+  const [userFriends, setUserFriends] = useState([]);
   const { currentUser } = useAuth();
+
+  const fetchFriends = async () => {
+    const res = await fetch("http://localhost:4000/all_users");
+    const data = await res.json();
+    return data.data;
+  };
 
   useEffect(() => {
     const user = currentUser;
@@ -20,6 +27,15 @@ const ChatPage = ({ socket }) => {
     if (user) {
       findingCurrentUser();
     }
+    const fetchAllUsers = async () => {
+      const allUsers = await fetchFriends();
+      const removeCurrentUser = allUsers.filter((users) => {
+        console.log(user.uid);
+        return users.user_id !== user.uid;
+      });
+      setUserFriends(removeCurrentUser);
+    };
+    fetchAllUsers();
   }, []);
 
   useEffect(() => {
@@ -28,7 +44,10 @@ const ChatPage = ({ socket }) => {
 
   return (
     <div className="chat">
-      <ChatBar />
+      <ChatBar
+        currentUserLogged={currentUserLogged}
+        userFriends={userFriends}
+      />
       <div className="chat__main">
         <ChatBody
           currentUserLogged={currentUserLogged}

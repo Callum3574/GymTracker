@@ -1,3 +1,5 @@
+import userLevel from "../Rank/UserLevel";
+
 const checkUser = async (user) => {
   try {
     if (user) {
@@ -8,6 +10,7 @@ const checkUser = async (user) => {
       return {
         name: data.name[0].firstname,
         icon: `https://api.dicebear.com/5.x/initials/svg?seed=${data.name[0].firstname}`,
+        rank: await userLevel(user.uid),
       };
     }
   } catch (e) {
