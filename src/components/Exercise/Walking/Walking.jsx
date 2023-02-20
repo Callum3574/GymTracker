@@ -22,7 +22,7 @@ import checkUser from "../../Auth/CheckUser";
 import InputNewExercise from "../InputExercise/InputNewExercise.jsx";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-
+import LinearWithValueLabel from "../../Rank/ProgressBar";
 const Walking = () => {
   const { currentUser } = useAuth();
   const [userLoggedIn, setUserLoggedIn] = useState("");
@@ -160,6 +160,21 @@ const Walking = () => {
                   <h4>Walking</h4>
                 </div>
                 <div>
+                  <h6>Current Ranking: {userLoggedIn.rank}</h6>
+                  <h6>
+                    Remaining steps until next level:{" "}
+                    {Math.ceil(totals[3].total / 10000) * 10000 -
+                      totals[3].total}
+                  </h6>
+                  <LinearWithValueLabel
+                    remainingSteps={
+                      (Math.ceil(totals[3].total / 10000) * 10000 -
+                        totals[3].total) /
+                      100
+                    }
+                  />
+                </div>
+                <div style={{ marginTop: "8rem" }}>
                   <Button onClick={handleShow} varient="text">
                     Log new exercise
                   </Button>
