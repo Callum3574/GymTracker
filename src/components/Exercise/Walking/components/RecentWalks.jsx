@@ -43,7 +43,7 @@ export default function RecentWalksSect({ walk }) {
         {
           <Item>
             <div className="d-flex w-100 justify-content-evenly">
-              <div className="d-flex flex-column align-self-center">
+              <div className="d-flex flex-column align-self-center w-25">
                 <h4>{walk.location}</h4>
                 <div>
                   <Rating

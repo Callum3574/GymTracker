@@ -16,6 +16,7 @@ import Community from "./components/Community/Community.jsx";
 import ResponsiveAppBar from "./components/Nav/Nav.jsx";
 import ChatPage from "./components/Chat/ChatPage.jsx";
 import io from "socket.io-client";
+import Settings from "./components/Settings/Settings.jsx";
 const socket = io.connect("http://localhost:4000");
 
 function App() {
@@ -43,6 +44,14 @@ function App() {
               <SignedInRoute>
                 <Signup />
               </SignedInRoute>
+            }
+          ></Route>
+          <Route
+            path="/settings"
+            element={
+              <PrivateRoute>
+                <Settings />
+              </PrivateRoute>
             }
           ></Route>
           <Route

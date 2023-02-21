@@ -29,3 +29,8 @@
   max-height: 300px;
   overflow-y: scroll;
 }
+
+.ranking-sect {
+  border: solid 0.25px rgb(128, 128, 128);
+  border-radius: 25%;
+}

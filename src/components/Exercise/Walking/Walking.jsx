@@ -23,6 +23,7 @@ import InputNewExercise from "../InputExercise/InputNewExercise.jsx";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import LinearWithValueLabel from "../../Rank/ProgressBar";
+import Achievements from "./components/Achievements.jsx";
 const Walking = () => {
   const { currentUser } = useAuth();
   const [userLoggedIn, setUserLoggedIn] = useState("");
@@ -68,13 +69,13 @@ const Walking = () => {
     {
       name: "Walks",
       icon: <HikingIcon className="mt-3" style={{ fontSize: "4rem" }} />,
-      total: data.length,
+      total: `${data.length} walks completed`,
       avg: `${Math.ceil(data.length / 7)} walks per week`,
     },
     {
       name: "Distance",
       icon: <AltRouteIcon className="mt-3" style={{ fontSize: "4rem" }} />,
-      total: reduceTotals("distance") + " " + "(km)",
+      total: `${reduceTotals("distance")} (km) walked`,
       avg: `${Math.ceil(reduceTotals("distance") / data.length)} (km) per walk`,
     },
 
@@ -82,7 +83,7 @@ const Walking = () => {
       name: "Calories",
       icon: <FitnessCenterIcon className="mt-3" style={{ fontSize: "4rem" }} />,
 
-      total: reduceTotals("calories"),
+      total: `${reduceTotals("calories")} calories burnt`,
       avg: `${Math.ceil(
         reduceTotals("calories") / data.length
       )} calories per walk`,
@@ -96,7 +97,7 @@ const Walking = () => {
     {
       name: "Hours",
       icon: <AccessTimeIcon className="mt-3" style={{ fontSize: "4rem" }} />,
-      total: Math.floor(reduceTotals("duration") / 60),
+      total: `${Math.floor(reduceTotals("duration") / 60)} hours walked`,
       avg: `${
         Math.ceil(reduceTotals("duration")) / data.length
       } (mins) per day`,
@@ -160,25 +161,34 @@ const Walking = () => {
                   <h4>Walking</h4>
                 </div>
                 <div>
-                  <h6>Current Ranking: {userLoggedIn.rank}</h6>
                   <h6>
-                    Remaining steps until next level:{" "}
+                    Level:{" "}
+                    <span className="ranking-sect">{userLoggedIn.rank}</span>
+                  </h6>
+                  <h6>
                     {Math.ceil(totals[3].total / 10000) * 10000 -
-                      totals[3].total}
+                      totals[3].total}{" "}
+                    steps remaining
                   </h6>
                   <LinearWithValueLabel
                     remainingSteps={
                       (Math.ceil(totals[3].total / 10000) * 10000 -
                         totals[3].total) /
-                      100
+                      1000
                     }
                   />
                 </div>
+                <div className="mt-4">
+                  <h6>Achievements</h6>
+                  <div>
+                    <Achievements />
+                  </div>
+                </div>
+
                 <div style={{ marginTop: "8rem" }}>
                   <Button onClick={handleShow} varient="text">
                     Log new exercise
                   </Button>
-                  <Button varient="text">View all exercises</Button>
                 </div>
               </Container>
             </Item>
