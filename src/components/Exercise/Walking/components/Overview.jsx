@@ -15,7 +15,7 @@ function Overview({ totals }) {
     dots: true,
     infinite: true,
     speed: 1000,
-    slidesToShow: 4,
+    slidesToShow: 3.5,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 5000,
@@ -60,11 +60,12 @@ function Overview({ totals }) {
                     }}
                   >
                     <div className="d-flex flex-column">
+                      <div>{value.icon}</div>
+
                       <div className="d-flex justify-content-evenly w-100">
-                        <div>{value.icon}</div>
                         <div className="d-flex flex-column justify-content-center mt-3">
-                          <p>Total: {value.total}</p>
-                          <p>Average: {value.avg}</p>
+                          <p>{value.total}</p>
+                          {/* <p>Average: {value.avg}</p> */}
                         </div>
                       </div>
                     </div>
